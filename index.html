@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="fontawesome-free-6.7.2-web/css/all.css">
     <style>
         @font-face {
             font-family: 'the-font';
@@ -12,6 +13,7 @@
         body {
             background-color: #1B1833;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             height: 95vh;
@@ -91,6 +93,28 @@
                 opacity: 1;
             }
         }
+        .text {
+            width: 500px;
+            position: absolute;
+            bottom: 20%;
+            background-color: #D6BD98;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+        h3 {
+            margin: 10px 0;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+        }
+        .next {
+            font-size: 25px;
+            margin-left: 20px;
+        }
+        .next:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -102,13 +126,20 @@
         <div class="b">
             <div class="btn"></div>
         </div>
+        
+    </div>
+    <div class="text">
+        <h3></h3>
+        <i class="fa-solid fa-arrow-left next"></i>
     </div>
     <script>
         let displayNum = 0;
         let display = document.querySelector('.display');
         let btn = document.querySelector('.btn');
-        display.innerText = displayNum;
+        let nextBtn = document.querySelector('.next');
+        let h3 = document.querySelector('h3');
 
+        display.innerText = displayNum;
         btn.onclick = function() {
             displayNum ++;
             display.innerText = displayNum;
@@ -121,6 +152,28 @@
             displayNum = 0;
             display.innerText = displayNum;
         }
+
+        let zkr = ['لا اله الا الله وحده لا شريك له له الملك وله الحمد وهو على كل شئ قدير',
+            'سبحان الله وبحمده سبحان الله العظيم', 'سبحان الله والحمد لله ولا اله الا الله والله اكبر',
+            'استغفر الله العظيم واتوب اليه',
+            'لا حول ولا قوة الا بالله',
+            'الحمد لله',
+            'الله اكبر'];
+        if (`${window.localStorage.getItem('zkrNum')}` == 'null'){
+            window.localStorage.setItem('zkrNum',0);
+        }
+        h3.innerText = zkr[window.localStorage.getItem('zkrNum')];
+
+        nextBtn.onclick = function() {
+            if (window.localStorage.getItem('zkrNum') >= zkr.length - 1) {
+                window.localStorage.setItem('zkrNum',0);
+            }
+            else {
+                window.localStorage.setItem('zkrNum', +window.localStorage.getItem('zkrNum') + 1);
+            }
+            h3.innerText = zkr[window.localStorage.getItem('zkrNum')];
+        }
+        
     </script>
 </body>
 </html>
